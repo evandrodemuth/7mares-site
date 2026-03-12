@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7 Mares — Peixes & Frutos do Mar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════════
+           RESET & BASE
+           ═══════════════════════════════════════════════ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #0a1628;
+            --deep-blue: #0f2440;
+            --ocean: #1a3a5c;
+            --gold: #c8956c;
+            --gold-light: #dbb08e;
+            --cream: #f5f0eb;
+            --white: #ffffff;
+            --text-light: #b8c4d4;
+            --text-muted: #7a8a9e;
+            --transition: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--navy);
+            color: var(--white);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ═══════════════════════════════════════════════
+           CUSTOM CURSOR GLOW
+           ═══════════════════════════════════════════════ */
+        .cursor-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(200, 149, 108, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s;
+        }
+
+        /* ═══════════════════════════════════════════════
+           NAVIGATION
+           ═══════════════════════════════════════════════ */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.5rem 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.5s var(--transition);
+            backdrop-filter: blur(0px);
+        }
+
+        nav.scrolled {
+            padding: 1rem 4rem;
+            background: rgba(10, 22, 40, 0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(200, 149, 108, 0.1);
+        }
+
+        .nav-logo-img {
+            height: 32px;
+            width: auto;
+            opacity: 0.35;
+            filter: grayscale(100%) brightness(1.2);
+            transition: all 0.4s var(--transition);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+        }
+
+        .nav-logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 0.02em;
+            transition: all 0.4s var(--transition);
+        }
+
+        .nav-logo-text span {
+            color: var(--gold);
+        }
+
+        .nav-brand:hover .nav-logo-img {
+            opacity: 1;
+            filter: grayscale(0%) brightness(1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.4s var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            padding: 0.6rem 1.6rem !important;
+            border: 1px solid var(--gold) !important;
+            color: var(--gold) !important;
+            border-radius: 2px;
+            transition: all 0.3s !important;
+            font-size: 0.8rem !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--gold) !important;
+            color: var(--navy) !important;
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-toggle span {
+            width: 24px;
+            height: 1.5px;
+            background: var(--white);
+            transition: all 0.3s;
+        }
+
+        /* ═══════════════════════════════════════════════
+           HERO
+           ═══════════════════════════════════════════════ */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(135deg, rgba(10, 22, 40, 0.95) 0%, rgba(15, 36, 64, 0.7) 50%, rgba(10, 22, 40, 0.85) 100%),
+                url('https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?w=1920&q=80') center/cover;
+        }
+
+        .hero-particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(200, 149, 108, 0.3);
+            border-radius: 50%;
+            animation: float-particle linear infinite;
+        }
+
+        @keyframes float-particle {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 750px;
+            padding: 0 4rem;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.5rem 1.2rem;
+            border: 1px solid rgba(200, 149, 108, 0.3);
+            border-radius: 2px;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 1s var(--transition) 0.2s both;
+        }
+
+        .hero-badge svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s var(--transition) 0.4s both;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .hero-desc {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            max-width: 500px;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 1s var(--transition) 0.6s both;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1.2rem;
+            animation: fadeInUp 1s var(--transition) 0.8s both;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2.2rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--navy);
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(200, 149, 108, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            animation: fadeInUp 1s var(--transition) 1.2s both;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scaleY(0.5);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scaleY(1);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ═══════════════════════════════════════════════
+           SECTION COMMONS
+           ═══════════════════════════════════════════════ */
+        section {
+            padding: 8rem 4rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.7rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        /* ═══════════════════════════════════════════════
+           FEATURES BAR
+           ═══════════════════════════════════════════════ */
+        .features {
+            background: var(--deep-blue);
+            padding: 4rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            border-top: 1px solid rgba(200, 149, 108, 0.1);
+            border-bottom: 1px solid rgba(200, 149, 108, 0.1);
+        }
+
+        .feature {
+            text-align: center;
+            padding: 2rem 3rem;
+            position: relative;
+        }
+
+        .feature:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 20%;
+            height: 60%;
+            width: 1px;
+            background: rgba(200, 149, 108, 0.15);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 1.2rem;
+            color: var(--gold);
+        }
+
+        .feature h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 0.6rem;
+        }
+
+        .feature p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ═══════════════════════════════════════════════
+           ABOUT
+           ═══════════════════════════════════════════════ */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            background: var(--navy);
+        }
+
+        .about-image {
+            position: relative;
+            aspect-ratio: 4/5;
+            overflow: hidden;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.85) contrast(1.1);
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(200, 149, 108, 0.2);
+            transform: translate(20px, 20px);
+            pointer-events: none;
+        }
+
+        .about-text p {
+            font-size: 1rem;
+            line-height: 1.9;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid rgba(200, 149, 108, 0.15);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.3rem;
+        }
+
+        /* ═══════════════════════════════════════════════
+           MENU HIGHLIGHTS
+           ═══════════════════════════════════════════════ */
+        .menu {
+            background: var(--deep-blue);
+            text-align: center;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .menu-card {
+            position: relative;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .menu-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s var(--transition), filter 0.8s var(--transition);
+            filter: brightness(0.6);
+        }
+
+        .menu-card:hover img {
+            transform: scale(1.08);
+            filter: brightness(0.4);
+        }
+
+        .menu-card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2.5rem;
+            background: linear-gradient(transparent, rgba(10, 22, 40, 0.95));
+            transform: translateY(20px);
+            transition: transform 0.5s var(--transition);
+        }
+
+        .menu-card:hover .menu-card-content {
+            transform: translateY(0);
+        }
+
+        .menu-card-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-card-content p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            opacity: 0;
+            transition: opacity 0.5s var(--transition) 0.1s;
+        }
+
+        .menu-card:hover .menu-card-content p {
+            opacity: 1;
+        }
+
+        .menu-divider {
+            width: 30px;
+            height: 1px;
+            background: var(--gold);
+            margin: 0.8rem 0;
+        }
+
+        /* ═══════════════════════════════════════════════
+           EXPERIENCE / AMBIENCE
+           ═══════════════════════════════════════════════ */
+        .experience {
+            background: var(--navy);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: 600px;
+        }
+
+        .experience-visual {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-visual img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7);
+        }
+
+        .experience-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 5rem;
+            background: var(--deep-blue);
+        }
+
+        .experience-content p {
+            color: var(--text-light);
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .experience-features {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .exp-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .exp-feature-icon {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            border: 1px solid rgba(200, 149, 108, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+        }
+
+        .exp-feature h4 {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+
+        .exp-feature p {
+            font-size: 0.82rem !important;
+            color: var(--text-muted) !important;
+            margin-bottom: 0 !important;
+        }
+
+        /* ═══════════════════════════════════════════════
+           AWARDS MARQUEE
+           ═══════════════════════════════════════════════ */
+        .awards {
+            padding: 3rem 0;
+            border-top: 1px solid rgba(200, 149, 108, 0.1);
+            border-bottom: 1px solid rgba(200, 149, 108, 0.1);
+            overflow: hidden;
+            background: var(--navy);
+        }
+
+        .awards-track {
+            display: flex;
+            animation: marquee 25s linear infinite;
+        }
+
+        .award-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            white-space: nowrap;
+            padding: 0 3rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        .award-item .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ═══════════════════════════════════════════════
+           GALLERY
+           ═══════════════════════════════════════════════ */
+        .gallery {
+            background: var(--deep-blue);
+            text-align: center;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 280px);
+            gap: 0.5rem;
+            margin-top: 4rem;
+        }
+
+        .gallery-grid .g-item:nth-child(1) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .g-item {
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .g-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s var(--transition);
+            filter: brightness(0.75);
+        }
+
+        .g-item:hover img {
+            transform: scale(1.05);
+            filter: brightness(0.9);
+        }
+
+        /* ═══════════════════════════════════════════════
+           CONTACT / HOURS
+           ═══════════════════════════════════════════════ */
+        .contact {
+            background: var(--navy);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        .contact-card {
+            padding: 3rem;
+            background: rgba(15, 36, 64, 0.5);
+            border: 1px solid rgba(200, 149, 108, 0.1);
+            transition: all 0.4s;
+        }
+
+        .contact-card:hover {
+            border-color: rgba(200, 149, 108, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .contact-card-icon {
+            width: 48px;
+            height: 48px;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .contact-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .contact-card a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-card a:hover {
+            color: var(--gold-light);
+        }
+
+        .contact-highlight {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        /* ═══════════════════════════════════════════════
+           MAP SECTION
+           ═══════════════════════════════════════════════ */
+        .map-section {
+            position: relative;
+            height: 400px;
+            filter: grayscale(0.6) brightness(0.7);
+        }
+
+        .map-section iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ═══════════════════════════════════════════════
+           FOOTER
+           ═══════════════════════════════════════════════ */
+        footer {
+            background: var(--deep-blue);
+            padding: 4rem;
+            border-top: 1px solid rgba(200, 149, 108, 0.1);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            cursor: pointer;
+        }
+
+        .footer-logo-img {
+            height: 42px;
+            width: auto;
+            opacity: 0.35;
+            filter: grayscale(100%) brightness(1.2);
+            transition: all 0.4s var(--transition);
+        }
+
+        .footer-brand:hover .footer-logo-img {
+            opacity: 1;
+            filter: grayscale(0%) brightness(1);
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .footer-logo span {
+            color: var(--gold);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(200, 149, 108, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-social a:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .footer-copy {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ═══════════════════════════════════════════════
+           SCROLL ANIMATIONS
+           ═══════════════════════════════════════════════ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s var(--transition), transform 0.8s var(--transition);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ═══════════════════════════════════════════════
+           RESPONSIVE
+           ═══════════════════════════════════════════════ */
+        @media (max-width: 1024px) {
+            section {
+                padding: 5rem 2rem;
+            }
+
+            nav {
+                padding: 1.2rem 2rem;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .about-image {
+                aspect-ratio: 16/9;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .experience-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-visual {
+                height: 400px;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(3, 220px);
+            }
+
+            .gallery-grid .g-item:nth-child(1) {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                inset: 0;
+                background: rgba(10, 22, 40, 0.98);
+                backdrop-filter: blur(20px);
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+            }
+
+            .nav-links.open a {
+                font-size: 1.2rem;
+            }
+
+            .hero-content {
+                padding: 0 2rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .feature:not(:last-child)::after {
+                display: none;
+            }
+
+            .about-stats {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-content {
+                padding: 3rem 2rem;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            .footer-brand {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- CURSOR GLOW -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- NAVIGATION -->
+    <nav id="mainNav">
+        <a href="#hero" class="nav-brand">
+            <img src="logo7mares.webp" alt="Logo 7 Mares" class="nav-logo-img">
+            <div class="nav-logo-text"><span>7</span> Mares</div>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#cardapio">Cardápio</a></li>
+            <li><a href="#experiencia">Experiência</a></li>
+            <li><a href="#galeria">Galeria</a></li>
+            <li><a href="#contato">Contato</a></li>
+            <li><a href="https://app.iareserva.com.br/7mares" target="_blank" class="nav-cta">Reservar Mesa</a></li>
+        </ul>
+        <div class="mobile-toggle" id="mobileToggle" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-particles" id="particles"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+                8× Eleito Melhor Frutos do Mar do ABC
+            </div>
+            <h1>A arte dos <em>sete mares</em> na sua mesa</h1>
+            <p class="hero-desc">
+                Desde 1997, a família Calcin traz o melhor da culinária de peixes e frutos do mar com sabor, tradição e
+                sofisticação.
+            </p>
+            <div class="hero-actions">
+                <a href="https://app.iareserva.com.br/7mares" target="_blank" class="btn btn-primary">Fazer Reserva</a>
+                <a href="11-03-2025_Cardapio-7-Mares_175x38cm_compressed.pdf" target="_blank"
+                    class="btn btn-outline">Ver Cardápio</a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span>Explore</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- FEATURES BAR -->
+    <div class="features">
+        <div class="feature reveal">
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 6.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM3 20c0-4.97 4.03-9 9-9s9 4.03 9 9" />
+                <path d="M17.5 6.5h.5a2 2 0 012 2v1a2 2 0 01-2 2h-.5M6.5 6.5H6a2 2 0 00-2 2v1a2 2 0 002 2h.5" />
+            </svg>
+            <h3>Chefs Renomados</h3>
+            <p>Pratos preparados e supervisionados por chefs profissionais de excelência</p>
+        </div>
+        <div class="feature reveal">
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M2 12h20M12 2a15 15 0 014 10 15 15 0 01-4 10 15 15 0 01-4-10A15 15 0 0112 2z" />
+            </svg>
+            <h3>Culinária Internacional</h3>
+            <p>Sabores de várias partes do mundo reunidos em um único lugar</p>
+        </div>
+        <div class="feature reveal">
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z" />
+            </svg>
+            <h3>Eventos Exclusivos</h3>
+            <p>Espaços para confraternizações, aniversários e eventos corporativos</p>
+        </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section class="about" id="sobre">
+        <div class="about-image reveal">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80"
+                alt="Interior do restaurante 7 Mares" />
+        </div>
+        <div class="about-text">
+            <span class="section-label reveal">Nossa História</span>
+            <h2 class="section-title reveal">Uma tradição familiar de <em>excelência</em></h2>
+            <p class="reveal">
+                Em 1997, a família Calcin transformou sua paixão pela pescaria em um dos restaurantes mais premiados do
+                ABC Paulista. O 7 Mares nasceu com a missão de oferecer peixes e frutos do mar preparados com critério e
+                zelo.
+            </p>
+            <p class="reveal">
+                Com uma carta de vinhos selecionados, adega climatizada, coquetéis exclusivos e sobremesas memoráveis, a
+                experiência vai muito além do prato. Premiado pela Revista Veja desde 2006 como referência em frutos do
+                mar.
+            </p>
+            <div class="about-stats reveal">
+                <div>
+                    <div class="stat-number">27+</div>
+                    <div class="stat-label">Anos de história</div>
+                </div>
+                <div>
+                    <div class="stat-number">8×</div>
+                    <div class="stat-label">Prêmio Veja</div>
+                </div>
+                <div>
+                    <div class="stat-number">94%</div>
+                    <div class="stat-label">Satisfação</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU HIGHLIGHTS -->
+    <section class="menu" id="cardapio">
+        <span class="section-label reveal">Cardápio</span>
+        <h2 class="section-title reveal">Sabores que atravessam <em>oceanos</em></h2>
+        <div class="menu-grid">
+            <div class="menu-card reveal">
+                <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&q=80"
+                    alt="Frutos do Mar" />
+                <div class="menu-card-content">
+                    <h3>Frutos do Mar</h3>
+                    <div class="menu-divider"></div>
+                    <p>Lagosta, camarão, lula e polvo preparados com receitas exclusivas da casa</p>
+                </div>
+            </div>
+            <div class="menu-card reveal">
+                <img src="https://images.unsplash.com/photo-1579631542720-3a87824fff86?w=600&q=80"
+                    alt="Culinária Oriental" />
+                <div class="menu-card-content">
+                    <h3>Culinária Oriental</h3>
+                    <div class="menu-divider"></div>
+                    <p>Sushis, sashimis e pratos orientais preparados com ingredientes frescos e selecionados</p>
+                </div>
+            </div>
+            <div class="menu-card reveal">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80"
+                    alt="Pratos Especiais" />
+                <div class="menu-card-content">
+                    <h3>Pratos Especiais</h3>
+                    <div class="menu-divider"></div>
+                    <p>Criações exclusivas do chef com ingredientes nobres e técnicas internacionais</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="experience" id="experiencia">
+        <div class="experience-inner">
+            <div class="experience-visual">
+                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=900&q=80"
+                    alt="Ambiente do restaurante" />
+            </div>
+            <div class="experience-content">
+                <span class="section-label reveal">Experiência</span>
+                <h2 class="section-title reveal">Mais do que um jantar, <em>uma experiência</em></h2>
+                <p class="reveal">
+                    O 7 Mares oferece um ambiente sofisticado e acolhedor, ideal para momentos especiais com quem você
+                    ama.
+                </p>
+                <div class="experience-features">
+                    <div class="exp-feature reveal">
+                        <div class="exp-feature-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path d="M12 20V10M18 20V4M6 20v-4" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Adega Climatizada</h4>
+                            <p>Vinhos nacionais e importados cuidadosamente selecionados</p>
+                        </div>
+                    </div>
+                    <div class="exp-feature reveal">
+                        <div class="exp-feature-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path
+                                    d="M17 8h1a4 4 0 110 8h-1M3 8h14v9a4 4 0 01-4 4H7a4 4 0 01-4-4V8zM6 2v4M10 2v4M14 2v4" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Coquetéis Exclusivos</h4>
+                            <p>Drinks autorais criados especialmente para harmonizar com o cardápio</p>
+                        </div>
+                    </div>
+                    <div class="exp-feature reveal">
+                        <div class="exp-feature-icon">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.5">
+                                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Eventos Privativos</h4>
+                            <p>Espaço especial para comemorações e eventos corporativos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AWARDS MARQUEE -->
+    <div class="awards">
+        <div class="awards-track">
+            <div class="award-item"><span class="dot"></span> 8× Melhor Frutos do Mar do ABC</div>
+            <div class="award-item"><span class="dot"></span> Premiado pela Revista Veja</div>
+            <div class="award-item"><span class="dot"></span> Desde 1997</div>
+            <div class="award-item"><span class="dot"></span> Culinária Internacional</div>
+            <div class="award-item"><span class="dot"></span> Família Calcin</div>
+            <div class="award-item"><span class="dot"></span> Frutos do Mar Premium</div>
+            <div class="award-item"><span class="dot"></span> 8× Melhor Frutos do Mar do ABC</div>
+            <div class="award-item"><span class="dot"></span> Premiado pela Revista Veja</div>
+            <div class="award-item"><span class="dot"></span> Desde 1997</div>
+            <div class="award-item"><span class="dot"></span> Culinária Internacional</div>
+            <div class="award-item"><span class="dot"></span> Família Calcin</div>
+            <div class="award-item"><span class="dot"></span> Frutos do Mar Premium</div>
+        </div>
+    </div>
+
+    <!-- GALLERY -->
+    <section class="gallery" id="galeria">
+        <span class="section-label reveal">Galeria</span>
+        <h2 class="section-title reveal">Momentos que ficam na <em>memória</em></h2>
+        <div class="gallery-grid">
+            <div class="g-item reveal"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=900&q=80"
+                    alt="Prato de frutos do mar" /></div>
+            <div class="g-item reveal"><img
+                    src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80"
+                    alt="Comida gourmet" /></div>
+            <div class="g-item reveal"><img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600&q=80"
+                    alt="Sushi" /></div>
+            <div class="g-item reveal"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80"
+                    alt="Restaurante interior" /></div>
+            <div class="g-item reveal"><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80"
+                    alt="Prato sofisticado" /></div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contato">
+        <div style="text-align:center">
+            <span class="section-label reveal">Contato</span>
+            <h2 class="section-title reveal">Venha nos <em>visitar</em></h2>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-card reveal" id="reservas">
+                <svg class="contact-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path
+                        d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+                </svg>
+                <h3>Fale Conosco</h3>
+                <p>
+                    <a href="tel:1142384622" class="contact-highlight">(11) 4238-4622</a><br><br>
+                    <a href="mailto:falecom@7mares.com.br">falecom@7mares.com.br</a><br><br>
+                    Reservas disponíveis por telefone ou WhatsApp
+                </p>
+            </div>
+            <div class="contact-card reveal">
+                <svg class="contact-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                </svg>
+                <h3>Localização</h3>
+                <p>
+                    Estrada Das Lágrimas, 1816<br>
+                    São Caetano do Sul — SP<br><br>
+                    <a href="https://maps.google.com/?q=Estrada+Das+Lagrimas+1816+Sao+Caetano+do+Sul"
+                        target="_blank">Abrir no Google Maps →</a>
+                </p>
+            </div>
+            <div class="contact-card reveal">
+                <svg class="contact-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                </svg>
+                <h3>Horários</h3>
+                <p>
+                    <span class="contact-highlight">Diariamente</span> — 12h às 23h<br>
+                    Domingos — até 21h<br><br>
+                    Almoço: 12h às 15h<br>
+                    Jantar: 19h às 22h<br><br>
+                    <span class="contact-highlight">Delivery</span> — 10h às 22h
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAP -->
+    <div class="map-section">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3654.5!2d-46.55!3d-23.65!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjPCsDM5JzAwLjAiUyA0NsKwMzMnMDAuMCJX!5e0!3m2!1spt-BR!2sbr!4v1"
+            loading="lazy" title="Localização 7 Mares"></iframe>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <img src="logo7mares.webp" alt="Logo 7 Mares" class="footer-logo-img">
+                <div class="footer-logo"><span>7</span> Mares</div>
+            </div>
+            <div class="footer-social">
+                <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+                    </svg>
+                </a>
+                <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="2" width="20" height="20" rx="5" />
+                        <circle cx="12" cy="12" r="5" />
+                        <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none" />
+                    </svg>
+                </a>
+            </div>
+            <div class="footer-copy">© 2026 Restaurante 7 Mares. Todos os direitos reservados.</div>
+        </div>
+    </footer>
+
+    <script>
+        // ── NAV SCROLL ──
+        const nav = document.getElementById('mainNav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 60);
+        });
+
+        // ── MOBILE MENU ──
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('open');
+        }
+
+        document.querySelectorAll('.nav-links a').forEach(a => {
+            a.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('open');
+            });
+        });
+
+        // ── CURSOR GLOW ──
+        const glow = document.getElementById('cursorGlow');
+        if (window.matchMedia('(pointer: fine)').matches) {
+            document.addEventListener('mousemove', e => {
+                glow.style.left = e.clientX + 'px';
+                glow.style.top = e.clientY + 'px';
+            });
+        } else {
+            glow.style.display = 'none';
+        }
+
+        // ── PARTICLES ──
+        const particlesEl = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.animationDuration = (6 + Math.random() * 10) + 's';
+            p.style.animationDelay = Math.random() * 8 + 's';
+            p.style.width = p.style.height = (1 + Math.random() * 2) + 'px';
+            particlesEl.appendChild(p);
+        }
+
+        // ── SCROLL REVEAL ──
+        const revealEls = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+        revealEls.forEach(el => observer.observe(el));
+
+        // ── SMOOTH SCROLL ──
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+
+</html>
