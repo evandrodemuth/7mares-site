@@ -98,6 +98,8 @@
             align-items: center;
             gap: 0.8rem;
             text-decoration: none;
+            position: relative;
+            z-index: 1002;
         }
 
         .nav-logo-text {
@@ -174,7 +176,8 @@
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
-            z-index: 1001;
+            position: relative;
+            z-index: 1002;
         }
 
         .mobile-toggle span {
@@ -987,12 +990,16 @@
                 display: flex;
                 flex-direction: column;
                 position: fixed;
-                inset: 0;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
                 background: rgba(10, 22, 40, 0.98);
                 backdrop-filter: blur(20px);
                 justify-content: center;
                 align-items: center;
                 gap: 2rem;
+                z-index: 1001;
             }
 
             .nav-links.open a {
@@ -1103,9 +1110,9 @@
     <!-- FEATURES BAR -->
     <div class="features">
         <div class="feature reveal">
-            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M12 6.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM3 20c0-4.97 4.03-9 9-9s9 4.03 9 9" />
-                <path d="M17.5 6.5h.5a2 2 0 012 2v1a2 2 0 01-2 2h-.5M6.5 6.5H6a2 2 0 00-2 2v1a2 2 0 002 2h.5" />
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z" />
+                <line x1="6" y1="17" x2="18" y2="17" />
             </svg>
             <h3>Chefs Renomados</h3>
             <p>Pratos preparados e supervisionados por chefs profissionais de excelência</p>
