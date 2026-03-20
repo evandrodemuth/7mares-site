@@ -9,6 +9,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
     <style>
         /* ═══════════════════════════════════════════════
            RESET & BASE
@@ -1051,6 +1053,213 @@
                 grid-template-rows: auto;
             }
         }
+        /* ═══════════════════════════════════════════════
+           WHATSAPP BUTTON
+           ═══════════════════════════════════════════════ */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1005;
+            transition: all 0.3s var(--transition);
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: #128c7e;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-icon {
+            width: 32px;
+            height: 32px;
+            fill: currentColor;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+            }
+            .whatsapp-icon {
+                width: 28px;
+                height: 28px;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════
+           KIDS SECTION
+           ═══════════════════════════════════════════════ */
+        .kids {
+            background: var(--navy);
+            padding: 8rem 4rem;
+        }
+
+        .kids-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .kids-carousel {
+            position: relative;
+            aspect-ratio: 16/10;
+            overflow: hidden;
+            border: 1px solid rgba(200, 149, 108, 0.2);
+        }
+
+        .kids-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .kids-slide {
+            min-width: 100%;
+            height: 100%;
+        }
+
+        .kids-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.9);
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(10, 22, 40, 0.6);
+            border: none;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+        .carousel-btn:hover {
+            background: var(--gold);
+            color: var(--navy);
+        }
+
+        .carousel-btn.prev { left: 1rem; }
+        .carousel-btn.next { right: 1rem; }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.8rem;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: var(--gold);
+            transform: scale(1.2);
+        }
+
+        @media (max-width: 1024px) {
+            .kids-grid {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+            .kids {
+                padding: 6rem 2rem;
+            }
+        }
+
+        /* ═══════════════════════════════════════════════
+           EVENTS SECTION
+           ═══════════════════════════════════════════════ */
+        .events {
+            background: var(--deep-blue);
+            text-align: center;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .event-card {
+            background: rgba(15, 36, 64, 0.4);
+            border: 1px solid rgba(200, 149, 108, 0.1);
+            padding: 4rem 2.5rem;
+            transition: all 0.4s var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .event-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-8px);
+            background: rgba(15, 36, 64, 0.6);
+        }
+
+        .event-icon {
+            width: 54px;
+            height: 54px;
+            color: var(--gold);
+        }
+
+        .event-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 400;
+        }
+
+        .event-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .event-cta {
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 1024px) {
+            .events-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
     </style>
 </head>
 
@@ -1063,7 +1272,7 @@
     <nav id="mainNav">
         <a href="#hero" class="nav-brand">
             <img src="logo7mares.webp" alt="Logo 7 Mares" class="nav-logo-img">
-            <div class="nav-logo-text"><span>7</span> Mares</div>
+            <div class="nav-logo-text"><span>7</span>&nbsp;Mares</div>
         </a>
         <ul class="nav-links" id="navLinks">
             <li><a href="#sobre">Sobre</a></li>
@@ -1090,7 +1299,7 @@
                 </svg>
                 8× Eleito Melhor Frutos do Mar do ABC
             </div>
-            <h1>A arte dos <em>sete mares</em> na sua mesa</h1>
+            <h1>A arte dos <em>7&nbsp;mares</em> na sua mesa</h1>
             <p class="hero-desc">
                 Desde 1997, a família Calcin traz o melhor da culinária de peixes e frutos do mar com sabor, tradição e
                 sofisticação.
@@ -1110,8 +1319,10 @@
     <!-- FEATURES BAR -->
     <div class="features">
         <div class="feature reveal">
-            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z" />
+            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z" />
                 <line x1="6" y1="17" x2="18" y2="17" />
             </svg>
             <h3>Chefs Renomados</h3>
@@ -1137,21 +1348,28 @@
     <!-- ABOUT -->
     <section class="about" id="sobre">
         <div class="about-image reveal">
-            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80"
+            <img src="GALERIA7MARES_001.jpg"
                 alt="Interior do restaurante 7 Mares" />
         </div>
         <div class="about-text">
             <span class="section-label reveal">Nossa História</span>
             <h2 class="section-title reveal">Uma tradição familiar de <em>excelência</em></h2>
             <p class="reveal">
-                Em 1997, a família Calcin transformou sua paixão pela pescaria em um dos restaurantes mais premiados do
-                ABC Paulista. O 7 Mares nasceu com a missão de oferecer peixes e frutos do mar preparados com critério e
-                zelo.
-            </p>
-            <p class="reveal">
                 Com uma carta de vinhos selecionados, adega climatizada, coquetéis exclusivos e sobremesas memoráveis, a
                 experiência vai muito além do prato. Premiado pela Revista Veja desde 2006 como referência em frutos do
                 mar.
+            </p>
+            <p class="reveal">
+                O gosto pela pescaria inspirou a família Calcin a abrir, em 1997, um restaurante de peixes e frutos do
+                mar. Desde a sua fundação, o 7 Mares prima por um cardápio variado, preparado com critério e zelo.
+
+                Acrescido a isso uma carta de vinhos com rótulos bastante selecionados: nacionais e importados, mantidos
+                em adega climatizada, coquetéis exclusivos e sobremesas de “tirar o fôlego”.
+            </p>
+            <p class="reveal">
+                Desde 2006 o Restaurante 7 Mares é premiado pela Revista Veja, uma das maiores do país, como o melhor
+                restaurante de frutos do mar do ABC, o que tem lhe rendido notório reconhecimento e confiança por parte
+                de seus clientes
             </p>
             <div class="about-stats reveal">
                 <div>
@@ -1214,9 +1432,9 @@
             </div>
             <div class="experience-content">
                 <span class="section-label reveal">Experiência</span>
-                <h2 class="section-title reveal">Mais do que um jantar, <em>uma experiência</em></h2>
+                <h2 class="section-title reveal">Mais do que uma refeição, <em>uma experiência</em></h2>
                 <p class="reveal">
-                    O 7 Mares oferece um ambiente sofisticado e acolhedor, ideal para momentos especiais com quem você
+                    O 7 Mares oferece um ambiente familiar e acolhedor, ideal para momentos especiais com quem você
                     ama.
                 </p>
                 <div class="experience-features">
@@ -1262,6 +1480,45 @@
         </div>
     </section>
 
+    <!-- EVENTS SECTION -->
+    <section class="events" id="eventos">
+        <span class="section-label reveal">Celebrações</span>
+        <h2 class="section-title reveal">Momentos que merecem <em>exclusividade</em></h2>
+        <div class="events-grid">
+            <div class="event-card reveal">
+                <svg class="event-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                    <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z" />
+                    <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zM12 5c3.87 0 7 3.13 7 7s-3.13 7-7 7-7-3.13-7-7 3.13-7 7-7z" />
+                    <path d="M12 9l-1 1h2l-1-1z" />
+                </svg>
+                <h3>Casamentos</h3>
+                <p>O cenário perfeito para o "sim" mais importante da sua vida, com gastronomia de alto padrão e ambiente sofisticado.</p>
+            </div>
+            <div class="event-card reveal">
+                <svg class="event-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                    <path d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
+                    <path d="M8 11h8" />
+                    <path d="M12 7v8" />
+                </svg>
+                <h3>Festas Sociais</h3>
+                <p>Aniversários, bodas e comemorações familiares ganham um toque extra de elegância e sabor em nossos espaços exclusivos.</p>
+            </div>
+            <div class="event-card reveal">
+                <svg class="event-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                    <rect x="3" y="4" width="18" height="15" rx="2" />
+                    <path d="M3 9h18" />
+                    <path d="M9 21v-2" />
+                    <path d="M15 21v-2" />
+                </svg>
+                <h3>Corporativos</h3>
+                <p>Infraestrutura completa para reuniões, treinamentos e confraternizações empresariais com discrição e profissionalismo.</p>
+            </div>
+        </div>
+        <div class="event-cta reveal">
+            <a href="#reservas" class="btn btn-outline">Solicitar Orçamento de Evento</a>
+        </div>
+    </section>
+
     <!-- AWARDS MARQUEE -->
     <div class="awards">
         <div class="awards-track">
@@ -1296,6 +1553,56 @@
                     alt="Restaurante interior" /></div>
             <div class="g-item reveal"><img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&q=80"
                     alt="Prato sofisticado" /></div>
+        </div>
+    </section>
+
+    <!-- KIDS SECTION -->
+    <section class="kids" id="espaco-kids">
+        <div class="kids-grid">
+            <div class="kids-content">
+                <span class="section-label reveal">Mundo 7 Mares</span>
+                <h2 class="section-title reveal">Diversão garantida para os <em>pequenos</em></h2>
+                <p class="reveal">
+                    Enquanto você desfruta do melhor da gastronomia, seus filhos se divertem em nossa área kids exclusiva. 
+                    Um espaço seguro, lúdico e repleto de brinquedos para garantir que a experiência de toda a família 
+                    seja inesquecível.
+                </p>
+                <p class="reveal">
+                    Nosso espaço foi pensado com carinho para crianças de todas as idades, com ambientes climatizados 
+                    e monitorados para sua total tranquilidade.
+                </p>
+                <div class="about-stats reveal">
+                    <div>
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Seguro</div>
+                    </div>
+                    <div>
+                        <div class="stat-number">Ar</div>
+                        <div class="stat-label">Climatizado</div>
+                    </div>
+                </div>
+            </div>
+            <div class="kids-carousel reveal">
+                <div class="kids-track" id="kidsTrack">
+                    <div class="kids-slide"><img src="kids7mares-1.jpeg" alt="Área Kids 1"></div>
+                    <div class="kids-slide"><img src="kids7mares-4.jpeg" alt="Área Kids 2"></div>
+                    <div class="kids-slide"><img src="kids7mares-6.jpeg" alt="Área Kids 3"></div>
+                    <div class="kids-slide"><img src="kids7mares-7.jpeg" alt="Área Kids 4"></div>
+                    <div class="kids-slide"><img src="kids7mares-8.jpeg" alt="Área Kids 5"></div>
+                    <div class="kids-slide"><img src="kids7mares-9.jpeg" alt="Área Kids 6"></div>
+                </div>
+                <button class="carousel-btn prev" onclick="moveSlide(-1)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </button>
+                <button class="carousel-btn next" onclick="moveSlide(1)">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 5l6 6-6 6" />
+                    </svg>
+                </button>
+                <div class="carousel-dots" id="kidsDots"></div>
+            </div>
         </div>
     </section>
 
@@ -1360,7 +1667,7 @@
         <div class="footer-inner">
             <div class="footer-brand">
                 <img src="logo7mares.webp" alt="Logo 7 Mares" class="footer-logo-img">
-                <div class="footer-logo"><span>7</span> Mares</div>
+                <div class="footer-logo"><span>7</span>&nbsp;Mares</div>
             </div>
             <div class="footer-social">
                 <a href="https://facebook.com" target="_blank" aria-label="Facebook">
@@ -1434,6 +1741,39 @@
 
         revealEls.forEach(el => observer.observe(el));
 
+        // ── KIDS CAROUSEL ──
+        let currentSlide = 0;
+        const track = document.getElementById('kidsTrack');
+        const slides = document.querySelectorAll('.kids-slide');
+        const dotsContainer = document.getElementById('kidsDots');
+
+        slides.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.className = `dot ${i === 0 ? 'active' : ''}`;
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        });
+
+        function updateSlider() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            document.querySelectorAll('.dot').forEach((d, i) => {
+                d.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        function moveSlide(step) {
+            currentSlide = (currentSlide + step + slides.length) % slides.length;
+            updateSlider();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlider();
+        }
+
+        // Auto-play
+        setInterval(() => moveSlide(1), 5000);
+
         // ── SMOOTH SCROLL ──
         document.querySelectorAll('a[href^="#"]').forEach(a => {
             a.addEventListener('click', e => {
@@ -1443,6 +1783,14 @@
             });
         });
     </script>
+
+    <!-- WHATSAPP BUTTON -->
+    <a href="https://wa.me/551142384622?text=Estava%20no%20site%20do%207Mares%20e%20gostaria%20de%20mais%20informações." 
+       class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+        <svg class="whatsapp-icon" viewBox="0 0 448 512">
+            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.7 17.7 68.9 27.1 106.1 27.1h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.4-8.6-44.6-27.5-16.4-14.7-27.5-32.8-30.7-38.4-3.2-5.6-.3-8.6 2.5-11.4 2.5-2.5 5.5-6.5 8.3-9.7 2.8-3.2 3.7-5.5 5.5-9.2 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.2 5.7 23.5 9.2 31.6 11.8 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+        </svg>
+    </a>
 </body>
 
 </html>
